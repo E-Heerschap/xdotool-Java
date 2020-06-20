@@ -1,0 +1,3 @@
+rootProject.name = 'xdotool-java'
+include 'lib'
+
