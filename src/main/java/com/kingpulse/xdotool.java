@@ -1,5 +1,8 @@
 package com.kingpulse;
 
+import com.sun.jna.Library;
+import com.sun.jna.Native;
+import com.sun.jna.NativeLibrary;
 import com.sun.jna.platform.unix.X11;
 import com.sun.jna.ptr.IntByReference;
 import com.sun.jna.ptr.LongByReference;
@@ -10,9 +13,11 @@ import com.sun.jna.ptr.LongByReference;
  * Maps the libxdo
  * Author: Edwin Heerschap
  */
-public interface xdotool {
+public interface xdotool extends Library {
 
-    xdo_t xdo_new(final String display);
+    xdotool lib = (xdotool) Native.load("xdo", xdotool.class);
+
+    public xdo_t xdo_new(final String display);
 
     xdo_t xdo_new_with_opened_display(X11.Display xdpy,
                                       final String display,
@@ -55,5 +60,8 @@ public interface xdotool {
     int xdo_second_keysequence_window_up(final xdo_t xdo, X11.Window window, final String keysequence, int delay);
 
     int xdo_send_keysequence_window_down(final xdo_t xdo, X11.Window window, final String keysequence, int delay);
+
+    int xdo_send_keysequence_window_list_do(final xdo_t xdo, X11.Window window, charcodemap_t keys, int nkeys,
+                                            int pressed, IntByReference modifier, int delay);
 }
 
