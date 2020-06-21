@@ -2,6 +2,7 @@ package com.kingpulse;
 
 import com.sun.jna.Structure;
 import com.sun.jna.platform.unix.X11;
+import com.sun.jna.ptr.LongByReference;
 
 /**
  * C struct in xdo.h
@@ -9,6 +10,7 @@ import com.sun.jna.platform.unix.X11;
  */
 @Structure.FieldOrder({
         "xdpy",
+        "display_name",
         "charcodes",
         "charcodes_len",
         "keycode_high",
@@ -23,7 +25,9 @@ public class xdo_t extends Structure {
 
     public X11.Display xdpy;
 
-    public charcodemap_t charcodes;
+    public String display_name;
+
+    public charcodemap_t.ByReference charcodes;
 
     public int charcodes_len;
 

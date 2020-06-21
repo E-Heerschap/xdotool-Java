@@ -17,7 +17,6 @@ import com.sun.jna.platform.unix.X11;
 })
 public class charcodemap_t extends Structure {
 
-
     /*
     Struct Values
      */
@@ -35,5 +34,11 @@ public class charcodemap_t extends Structure {
     public int needs_binding;
 
     public charcodemap_t() {}
+
+    public static class ByReference extends charcodemap_t implements Structure.ByReference{
+        public ByReference() {
+            super();
+        }
+    }
 
 }
