@@ -1,6 +1,5 @@
-import com.kingpulse.xdo_t;
+import com.kingpulse.structs.xdo_t;
 import com.kingpulse.xdotool;
-import com.sun.jna.Native;
 import com.sun.jna.ptr.IntByReference;
 import org.junit.Assert;
 import org.junit.Test;
@@ -11,7 +10,7 @@ import org.junit.Test;
  */
 public class xdo_hTests {
 
-    public xdotool lib = (xdotool) Native.load("xdo", xdotool.class);
+    public xdotool lib = xdotool.loadLib();
 
     /*
     The following removes boiler plate code for try catch finally on an xdo_t instance.
@@ -56,7 +55,7 @@ public class xdo_hTests {
 
             lib.xdo_move_mouse(x, 0, 0, TestSettings.screen);
             lib.xdo_get_mouse_location(xdo, xVal, yVal, screenNum);
-            Assert.assertEquals(0, xVal.getValue());
+            Assert.assertEquals(xVal.getValue(), 0);
             Assert.assertEquals(yVal.getValue(), 0);
             Assert.assertEquals(screenNum.getValue(), TestSettings.screen);
 
@@ -70,4 +69,13 @@ public class xdo_hTests {
 
         xdo_tEnsureFree(xdo, xdoTest);
     }
+
+    @Test
+    public void xdo_get_window_at_mouse() {
+        xdo_t xdo = lib.xdo_new(TestSettings.display);
+        ProcessBuilder pb = new ProcessBuilder("xclock");
+
+    }
+
+
 }

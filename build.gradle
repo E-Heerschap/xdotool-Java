@@ -16,5 +16,3 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     implementation 'net.java.dev.jna:jna-platform:5.5.0'
 }
-
-// TODO Make gradle task to compile xdotool and place it in test resources.

@@ -1,4 +1,4 @@
-package com.kingpulse;
+package com.kingpulse.structs;
 
 import com.sun.jna.Structure;
 import com.sun.jna.platform.unix.X11;
