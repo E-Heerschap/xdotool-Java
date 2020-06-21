@@ -1,6 +1,7 @@
 plugins {
-    id 'java'
+    id 'java-library'
     id "com.github.johnrengelman.shadow" version "5.2.0"
+    id "maven-publish"
 }
 
 group 'com.kingpulse'
@@ -15,4 +16,25 @@ repositories {
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     implementation 'net.java.dev.jna:jna-platform:5.5.0'
+}
+
+publishing {
+
+	publications {
+		xdotoolJava(MavenPublication) {
+		    from components.java
+		}
+	}
+
+	repositories {
+		maven {
+			name = "GitHubPackages"
+			url = uri("https://maven.pkg.github.com/kingpulse/xdotool-java")
+		credentials { 
+			username=System.getenv("USERNAME")
+			password=System.getenv("TOKEN")	
+			}
+		}
+	}
+
 }

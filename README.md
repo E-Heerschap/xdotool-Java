@@ -9,10 +9,32 @@ From [xdotool](https://github.com/jordansissel/xdotool) README:
 
 This uses [JNA](https://github.com/java-native-access/jna) to access the libxdo C functions.
  
- ## Installing libxdo
+## Using xdotool-Java 
+### libxdo install
  
- Installing from the target linux distribution is the easiest. Most of the prominent distributions
-  have xdotool packages. For example using Debian: `apt-get install libxdo-dev`.
+ libxdo is not packaged with this library and should be installed
+prior to using this library. Installing from the target linux distribution 
+is the easiest. Most of the prominent distributions have xdotool packages. For
+ example using Debian: `apt-get install libxdo-dev`.
   
   Otherwise, libxdo can be built from [source](https://github.com/jordansissel/xdotool).
- 
+
+### Library import
+
+Maven:
+
+```
+<dependency>
+	<groupId>com.kingpulse</groupId>
+	<artifactId>xdotool-java</artifactId>
+	<version>1.0-SNAPSHOT</version>
+</dependency>
+```
+
+Gradle:
+
+```
+dependencies {
+	implementation 'com.kingpulse:xdotool-java:1.0-SNAPSHOT'
+}
+``` 
