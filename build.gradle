@@ -2,9 +2,11 @@ plugins {
     id 'java-library'
     id "com.github.johnrengelman.shadow" version "5.2.0"
     id "maven-publish"
+	id 'maven'
+	id 'signing'
 }
 
-group 'com.kingpulse'
+group 'io.github.kingpulse'
 archivesBaseName = "xdotool-java"
 version '1.0'
 
@@ -34,6 +36,69 @@ publishing {
 			credentials {
 				username = System.getenv("USERNAME")
 				password = System.getenv("TOKEN")
+			}
+		}
+	}
+}
+
+task javadocJar(type: Jar) {
+	classifier = 'javadoc'
+	from javadoc
+}
+
+task sourcesJar(type: Jar) {
+	classifier = 'sources'
+	from sourceSets.main.allSource
+}
+
+artifacts {
+	archives javadocJar, sourcesJar
+}
+
+signing {
+	sign configurations.archives
+}
+
+uploadArchives {
+	repositories {
+		mavenDeployer {
+			beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+			repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+				authentication(userName: ossrhUsername, password: ossrhPassword)
+			}
+
+			snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+				authentication(userName: ossrhUsername, password: ossrhPassword)
+			}
+
+			pom.project {
+				name 'xdotool-java'
+				packaging 'jar'
+				// optionally artifactId can be defined here
+				description 'A java library for accessing libxdo'
+				url 'https://github.com/kingpulse/xdotool-Java'
+
+				scm {
+					connection 'https://github.com/kingpulse/xdotool-Java.git'
+					developerConnection 'https://github.com/kingpulse/xdotool-Java.git'
+					url 'https://github.com/kingpulse/xdotool-Java'
+				}
+
+				licenses {
+					license {
+						name 'MIT License'
+						url 'https://www.mit.edu/~amini/LICENSE.md'
+					}
+				}
+
+				developers {
+					developer {
+						id 'kingpulse'
+						name 'Edwin Heerschap'
+						email 'Edwin.H3erschap@gmail.com'
+					}
+				}
 			}
 		}
 	}

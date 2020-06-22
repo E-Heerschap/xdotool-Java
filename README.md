@@ -21,4 +21,24 @@ is the easiest. Most of the prominent distributions have xdotool packages. For
 
 ### Library import
 
-Until a maven central repository project is added it can be manually added to your local maven repository. Download the relevant files from the packages tab.
+Gradle:
+```
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation("io.github.kingpulse:xdotool-java:1.0")
+    }
+```
+
+Maven
+```
+   <dependency>
+     <groupId>io.github.kingpulse</groupId>
+     <artifactId>xdotool-java</artifactId>
+     <version>1.0</version>
+   </dependency>
+```
+
+Each released version is also published to github packages.
