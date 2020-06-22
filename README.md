@@ -32,7 +32,7 @@ dependencies {
     }
 ```
 
-Maven
+Maven:
 ```
    <dependency>
      <groupId>io.github.kingpulse</groupId>
