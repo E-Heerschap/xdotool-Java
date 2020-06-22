@@ -14,6 +14,7 @@ import com.sun.jna.Structure;
         "winname",
         "pid",
         "max_depth",
+        "only_visible",
         "screen",
         "require",
         "searchmask",
@@ -49,55 +50,30 @@ public class xdo_search_t extends Structure {
     public xdo_search_t() {
     }
 
-    //TODO switch these enums to static definitions
-
     /**
      * Used for the 'require' field in xdo_search_t.
-     * See xdo.h.
      */
-    public enum require {
+    public static final int require_SEARCH_ANY = 0;
 
-        SEARCH_ANY(0),
-        SEARCH_ALL(1);
-
-
-        private int value;
-
-        private require(int val) {
-            value = val;
-        }
-
-        public int getValue() {
-            return value;
-        }
-
-    }
+    public static final int require_SEARCH_ALL = 1;
 
     /**
      * Used for the 'searchmask' field in xdo_search_t
      */
-    public enum searchmask {
+    public static final long searchmask_SEARCH_TITLE = 1L << 0;
 
-        SEARCH_TITLE(1L << 0),
-        SEARCH_CLASS(1L << 1),
-        SEARCH_NAME(1L << 2),
-        SEARCH_PID(1L << 3),
-        SEARCH_ONLYVISIBLE(1L << 4),
-        SEARCH_SCREEN(1L << 5),
-        SEARCH_CLASSNAME(1L << 6),
-        SEARCH_DESKTOP(1L << 7);
+    public static final long searchmask_SEARCH_CLASS = 1L << 1;
 
-        private long value;
+    public static final long searchmask_SEARCH_NAME = 1L << 2;
 
-        private searchmask(long val) {
-            this.value = val;
-        }
+    public static final long searchmask_SEARCH_PID = 1L << 3;
 
-        public long getValue() {
-            return this.value;
-        }
+    public static final long searchmask_SEARCH_ONLYVISIBLE = 1L << 4;
 
-    }
+    public static final long searchmask_SEARCH_SCREEN = 1L << 5;
 
+    public static final long searchmask_SEARCH_CLASSNAME = 1L << 6;
+
+    public static final long searchmask_SEARCH_DESKTOP = 1L << 7;
 
 }

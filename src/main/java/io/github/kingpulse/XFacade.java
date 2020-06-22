@@ -10,9 +10,11 @@ import io.github.kingpulse.structs.xdo_t;
 import lombok.Getter;
 import lombok.Setter;
 
-public class LibxdoFacade {
+public class XFacade {
 
-    private xdotool lib;
+    private static xdotool lib;
+
+    private static X11 x11lib;
 
     /**
      * Maximum padding in x direction for a window. Window manager imposed border
@@ -26,8 +28,35 @@ public class LibxdoFacade {
     @Setter @Getter
     private int maxYPad = 50;
 
-    public LibxdoFacade(xdotool lib) {
-        this.lib = lib;
+    /**
+     * Ensures attempted load of libxdo and libx11.
+     * Uses "xdo" and "X11" for names.
+     * xdotool will likely require libx11 installation
+     * for a long time considering the low maintenance of
+     * the repository. However, the libx11 dependency MAY be removed
+     * in the future: https://github.com/jordansissel/xdotool/blob/master/Makefile#L145
+     */
+    public XFacade() {
+        XFacade.lib = Native.load("xdo", xdotool.class);
+        XFacade.x11lib = Native.load("X11", X11.class);
+    }
+
+    /**
+     *
+     * @param lib loaded xdotool library
+     * @param x11lib loaded x11 library
+     */
+    public XFacade(xdotool lib, X11 x11lib) {
+        XFacade.lib = lib;
+
+        //If different lib, old one should be gc'ed.
+        //https://stackoverflow.com/questions/41056322/how-to-dispose-library-loaded-with-jna
+        XFacade.x11lib = x11lib;
+
+    }
+
+    private boolean isX11Loaded() {
+        return XFacade.x11lib != null;
     }
 
     /**
@@ -108,24 +137,5 @@ public class LibxdoFacade {
     public void xdoMoveWindowSync(final xdo_t xdo, X11.Window window, int x, int y) throws XDoException {
         xdoMoveWindowSync(xdo, window, x, y, 5000, 100);
     }
-
-    public Pair<Integer, Integer> calculateWindowPadding(final xdo_t xdo, X11.Screen screen, X11.Window window) {
-        X11 x11lib = Native.load( "X11", X11.class);
-    }
-
-    /**
-     * Calculates the padding imposed by the X window manager.
-     * IMPORTANT: THIS WILL MOVE THE WINDOW TO CALCULATE THE PADDING.
-     * This may not be necessary if access to the X11 Library is available.
-     * @param xdo
-     * @param window
-     * @param x
-     * @param y
-     * @return
-     */
-    /*
-    public Pair<Integer, Integer> calculateWindowPadding(final xdo_t xdo, X11.Window window, int x, int y) {
-
-    }*/
 
 }
