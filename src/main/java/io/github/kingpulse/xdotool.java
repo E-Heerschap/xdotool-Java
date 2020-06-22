@@ -1,14 +1,14 @@
-package com.kingpulse;
+package io.github.kingpulse;
 
-import com.kingpulse.structs.charcodemap_t;
-import com.kingpulse.structs.xdo_search_t;
-import com.kingpulse.structs.xdo_t;
 import com.sun.jna.Library;
 import com.sun.jna.Native;
 import com.sun.jna.platform.unix.X11;
 import com.sun.jna.ptr.IntByReference;
 import com.sun.jna.ptr.LongByReference;
 import com.sun.jna.ptr.PointerByReference;
+import io.github.kingpulse.structs.charcodemap_t;
+import io.github.kingpulse.structs.xdo_search_t;
+import io.github.kingpulse.structs.xdo_t;
 
 //TODO Add convert from useconds_t (unsigned 32 bit native integer) to java int.
 

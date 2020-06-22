@@ -1,4 +1,4 @@
-package com.kingpulse.definitions;
+package io.github.kingpulse.definitions;
 
 /**
  * Defines int direction parameter for the xdo_find_window_client function.

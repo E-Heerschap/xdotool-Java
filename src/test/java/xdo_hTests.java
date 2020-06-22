@@ -1,6 +1,6 @@
-import com.kingpulse.structs.xdo_t;
-import com.kingpulse.xdotool;
 import com.sun.jna.ptr.IntByReference;
+import io.github.kingpulse.structs.xdo_t;
+import io.github.kingpulse.xdotool;
 import org.junit.Assert;
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package com.kingpulse.definitions;
+package io.github.kingpulse.definitions;
 
 /**
  * As of current implementation of xdotool the

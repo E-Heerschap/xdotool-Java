@@ -1,4 +1,4 @@
-package com.kingpulse.definitions;
+package io.github.kingpulse.definitions;
 
 /**
  * Used for the xdo_window_state functions action parameter.

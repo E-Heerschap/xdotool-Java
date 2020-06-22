@@ -1,4 +1,4 @@
-package com.kingpulse.structs;
+package io.github.kingpulse.structs;
 
 import com.sun.jna.Structure;
 

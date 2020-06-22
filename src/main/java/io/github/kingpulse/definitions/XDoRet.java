@@ -1,4 +1,4 @@
-package com.kingpulse.definitions;
+package io.github.kingpulse.definitions;
 
 /**
  * Error and success values for xdotool returns
