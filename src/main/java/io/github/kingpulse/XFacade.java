@@ -4,7 +4,6 @@ import com.sun.jna.Native;
 import com.sun.jna.platform.unix.X11;
 import com.sun.jna.ptr.IntByReference;
 import com.sun.jna.ptr.PointerByReference;
-import com.sun.tools.javac.util.Pair;
 import io.github.kingpulse.structs.xdo_search_t;
 import io.github.kingpulse.structs.xdo_t;
 import lombok.Getter;
@@ -121,7 +120,7 @@ public class XFacade {
         do {
 
             lib.xdo_get_window_location(xdo, window, newX, newY, null);
-            if (System.currentTimeMillis() - startTime > timeLimit)  {
+            if (System.currentTimeMillis() - startTime > timeLimit) {
                 throw new XDoException("Failed to move & sync window");
             }
 
@@ -132,10 +131,31 @@ public class XFacade {
             }
 
         } while (Math.abs(newX.getValue() - x) < maxXPad && Math.abs(newY.getValue() - y) < maxYPad);
+
     }
 
     public void xdoMoveWindowSync(final xdo_t xdo, X11.Window window, int x, int y) throws XDoException {
         xdoMoveWindowSync(xdo, window, x, y, 5000, 100);
+    }
+
+    /**
+     * This is fixes a bug in the current xdotool displaying the incorrect location.
+     * Until that is fixed, this will work.
+     *
+     * @param xdo    xdo_t instance
+     * @param window window to get location of
+     */
+    public void xdo_get_window_location(final xdo_t xdo, X11.Window window, IntByReference x, IntByReference y) {
+        X11.XWindowAttributes winAttr = new X11.XWindowAttributes();
+        x11lib.XGetWindowAttributes(xdo.xdpy, window, winAttr);
+        X11.WindowByReference c = new X11.WindowByReference();
+        X11.Window root = winAttr.root; //Getting relative to root coords. (0, 0) -> TOP LEFT
+
+        x11lib.XTranslateCoordinates(xdo.xdpy, window, root, 0, 0, x, y, c);
+
+        if (c.getPointer() != null) {
+            x11lib.XFree(c.getPointer());
+        }
     }
 
 }

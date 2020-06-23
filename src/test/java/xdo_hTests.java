@@ -1,8 +1,8 @@
 import com.sun.jna.platform.unix.X11;
 import com.sun.jna.ptr.IntByReference;
 import com.sun.jna.ptr.PointerByReference;
-import io.github.kingpulse.XFacade;
 import io.github.kingpulse.XDoException;
+import io.github.kingpulse.XFacade;
 import io.github.kingpulse.structs.xdo_search_t;
 import io.github.kingpulse.structs.xdo_t;
 import io.github.kingpulse.xdotool;
@@ -124,7 +124,7 @@ public class xdo_hTests {
 
     }
 
-    private void mv_window_test(int shiftAmount, int padX, int padY) {
+    private void mv_window_test(int shiftAmount) {
         try {
 
             XFacade xdf = new XFacade();
@@ -133,11 +133,14 @@ public class xdo_hTests {
             xdf.xdoMoveWindowSync(xdo, getXClockWindow(), shiftAmount, shiftAmount);
             IntByReference x = new IntByReference();
             IntByReference y = new IntByReference();
-            lib.xdo_get_window_location(xdo, getXClockWindow(), x, y, null);
 
-            //Makes space for window manager window borders etc.
-            Assert.assertTrue(10 > Math.abs(x.getValue() - shiftAmount - padX));
-            Assert.assertTrue(50 > Math.abs(y.getValue() - shiftAmount - padY));
+            //Using our func. Theirs contains bug.
+            xdf.xdo_get_window_location(xdo, getXClockWindow(), x, y);
+
+            //Tolerance values added as the Window managers decides final
+            //position and usually distorts slightly for borders etc.
+            Assert.assertTrue(10 > Math.abs(x.getValue() - shiftAmount));
+            Assert.assertTrue(50 > Math.abs(y.getValue() - shiftAmount));
 
         } catch (XDoException e) {
             e.printStackTrace();
@@ -149,18 +152,11 @@ public class xdo_hTests {
 
         XFacade xdf = new XFacade();
 
-        //Sending to 200,200 first to obtain window padding.
         xdf.xdoMoveWindowSync(xdo, getXClockWindow(), 200, 200);
-        IntByReference origX = new IntByReference();
-        IntByReference origY = new IntByReference();
-        lib.xdo_get_window_location(xdo, getXClockWindow(), origX, origY, null);
 
-        int padX = origX.getValue() - 200;
-        int padY = origY.getValue() - 200;
-
-        mv_window_test(200, padX, padY);
-        mv_window_test(300, padX, padY);
-        mv_window_test(600, padX, padY);
+        mv_window_test(200);
+        mv_window_test(300);
+        mv_window_test(600);
 
     }
 
