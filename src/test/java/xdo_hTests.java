@@ -152,8 +152,6 @@ public class xdo_hTests {
 
         XFacade xdf = new XFacade();
 
-        xdf.xdoMoveWindowSync(xdo, getXClockWindow(), 200, 200);
-
         mv_window_test(200);
         mv_window_test(300);
         mv_window_test(600);
