@@ -72,7 +72,7 @@ public interface xdotool extends Library {
 
     int xdo_get_mouse_location(final xdo_t xdo, IntByReference x, IntByReference y, IntByReference screen_num);
 
-    int xdo_get_window_at_mouse(final xdo_t xdo, LongByReference window_ret);
+    int xdo_get_window_at_mouse(final xdo_t xdo, X11.WindowByReference window_ret);
 
     int xdo_get_mouse_location2(final xdo_t xdo, IntByReference x_ret,
                                 IntByReference y_ret, IntByReference screen_num_ret,
@@ -151,7 +151,17 @@ public interface xdotool extends Library {
 
     int xdo_reparent_window(final xdo_t xdo, X11.Window wid_source, X11.Window wid_target);
 
-    //Screen ret is type Screen**
+    /**
+     * VALUES RETURNED BY THIS ARE INACCURATE AS OF VERSION 3.20200619.1 (CURRENT).
+     * Use XFacade getWindowLocation method instead.
+     *
+     * @param xdo
+     * @param wid
+     * @param x_ret
+     * @param y_ret
+     * @param screen_ret
+     * @return
+     */
     int xdo_get_window_location(final xdo_t xdo, X11.Window wid, IntByReference x_ret, IntByReference y_ret,
                                 PointerByReference screen_ret);
 

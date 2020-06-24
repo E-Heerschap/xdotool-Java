@@ -59,7 +59,7 @@ public class xdo_hTests {
             search.require = xdo_search_t.require_SEARCH_ANY;
 
             XFacade fac = new XFacade();
-            X11.Window[] windows = fac.xdoSearchWindows(xdo, search);
+            X11.Window[] windows = fac.searchWindows(xdo, search);
 
             win = windows[0];
             return win;
@@ -110,7 +110,7 @@ public class xdo_hTests {
         search.require = xdo_search_t.require_SEARCH_ANY;
 
         XFacade fac = new XFacade();
-        X11.Window[] windows = fac.xdoSearchWindows(xdo, search);
+        X11.Window[] windows = fac.searchWindows(xdo, search);
 
         Assert.assertTrue(windows.length >= 1);
         X11.Window win = windows[0];
@@ -130,12 +130,12 @@ public class xdo_hTests {
             XFacade xdf = new XFacade();
 
             //Now shift and compare new position - window padding to the shift amount
-            xdf.xdoMoveWindowSync(xdo, getXClockWindow(), shiftAmount, shiftAmount);
+            xdf.moveWindowSync(xdo, getXClockWindow(), shiftAmount, shiftAmount);
             IntByReference x = new IntByReference();
             IntByReference y = new IntByReference();
 
             //Using our func. Theirs contains bug.
-            xdf.xdo_get_window_location(xdo, getXClockWindow(), x, y);
+            xdf.getWindowLocation(xdo, getXClockWindow(), x, y);
 
             //Tolerance values added as the Window managers decides final
             //position and usually distorts slightly for borders etc.
@@ -145,6 +145,24 @@ public class xdo_hTests {
         } catch (XDoException e) {
             e.printStackTrace();
         }
+    }
+
+    @Test
+    public void mouse_over_window_test() throws XDoException {
+
+        XFacade xdf = new XFacade();
+
+        IntByReference x = new IntByReference();
+        IntByReference y = new IntByReference();
+        xdf.getWindowLocation(xdo, getXClockWindow(), x, y);
+
+        lib.xdo_move_mouse(xdo, x.getValue() + 10, y.getValue() + 10, TestSettings.screen);
+
+        X11.WindowByReference window = new X11.WindowByReference();
+        lib.xdo_get_window_at_mouse(xdo, window);
+
+        Assert.assertEquals(window.getValue().longValue(), getXClockWindow().longValue());
+
     }
 
     @Test

@@ -60,11 +60,12 @@ public class XFacade {
 
     /**
      * Performs the xdo_search_windows function and performs required conversions.
-     * @param xdo xdo_t instance
+     *
+     * @param xdo    xdo_t instance
      * @param search search structure defining the search
      * @return Array of X11 windows matching the search
      */
-    public X11.Window[] xdoSearchWindows(final xdo_t xdo, final xdo_search_t search) {
+    public X11.Window[] searchWindows(final xdo_t xdo, final xdo_search_t search) {
 
         PointerByReference windows = new PointerByReference();
         IntByReference numWindows = new IntByReference();
@@ -72,7 +73,7 @@ public class XFacade {
         lib.xdo_search_windows(xdo, search, windows, numWindows);
         X11.Window[] windowArr = new X11.Window[numWindows.getValue()];
 
-        for(int i = 0; i < numWindows.getValue(); i++) {
+        for (int i = 0; i < numWindows.getValue(); i++) {
             X11.Window win = new X11.Window(windows.getValue().getLong(i * X11.Window.SIZE));
             windowArr[i] = win;
         }
@@ -97,11 +98,11 @@ public class XFacade {
      * @param sleepTime Time to sleep between each sync check
      * @throws XDoException If timeLimit is reached, XDoException is thrown
      */
-    public void xdoMoveWindowSync(final xdo_t xdo, X11.Window window, int x, int y, int timeLimit,
-                                  int sleepTime) throws XDoException {
+    public void moveWindowSync(final xdo_t xdo, X11.Window window, int x, int y, int timeLimit,
+                               int sleepTime) throws XDoException {
 
         if (timeLimit <= 0) {
-            throw new IllegalArgumentException ("timeLimit must be above 0!");
+            throw new IllegalArgumentException("timeLimit must be above 0!");
         }
 
         if (sleepTime <= 0) {
@@ -134,8 +135,8 @@ public class XFacade {
 
     }
 
-    public void xdoMoveWindowSync(final xdo_t xdo, X11.Window window, int x, int y) throws XDoException {
-        xdoMoveWindowSync(xdo, window, x, y, 5000, 100);
+    public void moveWindowSync(final xdo_t xdo, X11.Window window, int x, int y) throws XDoException {
+        moveWindowSync(xdo, window, x, y, 5000, 100);
     }
 
     /**
@@ -145,7 +146,7 @@ public class XFacade {
      * @param xdo    xdo_t instance
      * @param window window to get location of
      */
-    public void xdo_get_window_location(final xdo_t xdo, X11.Window window, IntByReference x, IntByReference y) {
+    public void getWindowLocation(final xdo_t xdo, X11.Window window, IntByReference x, IntByReference y) {
         X11.XWindowAttributes winAttr = new X11.XWindowAttributes();
         x11lib.XGetWindowAttributes(xdo.xdpy, window, winAttr);
         X11.WindowByReference c = new X11.WindowByReference();
