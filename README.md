@@ -1,4 +1,7 @@
 # xdotool-Java
+
+![xdotool-java](xdotool.gif)
+
 A Java library for accessing [xdotool](https://github.com/jordansissel/xdotool)'s libxdo.
 
 From [xdotool](https://github.com/jordansissel/xdotool) README:
@@ -6,6 +9,7 @@ From [xdotool](https://github.com/jordansissel/xdotool) README:
 > Fake input from the mouse and keyboard very easily.
     Also supports window manager actions such as moving, activating, and other
     actions on windows.
+
 
 This uses [JNA](https://github.com/java-native-access/jna) to access the libxdo C functions.
  
