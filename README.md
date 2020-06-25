@@ -32,7 +32,7 @@ repositories {
 }
 
 dependencies {
-    implementation("io.github.kingpulse:xdotool-java:1.0")
+    implementation("io.github.kingpulse:xdotool-java:1.1")
     }
 ```
 
@@ -41,7 +41,7 @@ Maven:
    <dependency>
      <groupId>io.github.kingpulse</groupId>
      <artifactId>xdotool-java</artifactId>
-     <version>1.0</version>
+     <version>1.1</version>
    </dependency>
 ```
 
