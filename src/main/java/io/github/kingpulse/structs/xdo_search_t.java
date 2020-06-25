@@ -47,8 +47,10 @@ public class xdo_search_t extends Structure {
 
     public int limit; //TODO implement method to convert this unsigned value if first bit set.
 
-    public xdo_search_t() {
-    }
+    /**
+     * Used for the 'searchmask' field in xdo_search_t
+     */
+    public static final int searchmask_SEARCH_TITLE = 1 << 0;
 
     /**
      * Used for the 'require' field in xdo_search_t.
@@ -56,24 +58,16 @@ public class xdo_search_t extends Structure {
     public static final int require_SEARCH_ANY = 0;
 
     public static final int require_SEARCH_ALL = 1;
+    public static final int searchmask_SEARCH_CLASS = 1 << 1;
+    public static final int searchmask_SEARCH_NAME = 1 << 2;
+    public static final int searchmask_SEARCH_PID = 1 << 3;
+    public static final int searchmask_SEARCH_ONLYVISIBLE = 1 << 4;
+    public static final int searchmask_SEARCH_SCREEN = 1 << 5;
+    public static final int searchmask_SEARCH_CLASSNAME = 1 << 6;
+    public static final int searchmask_SEARCH_DESKTOP = 1 << 7;
 
-    /**
-     * Used for the 'searchmask' field in xdo_search_t
-     */
-    public static final long searchmask_SEARCH_TITLE = 1L << 0;
-
-    public static final long searchmask_SEARCH_CLASS = 1L << 1;
-
-    public static final long searchmask_SEARCH_NAME = 1L << 2;
-
-    public static final long searchmask_SEARCH_PID = 1L << 3;
-
-    public static final long searchmask_SEARCH_ONLYVISIBLE = 1L << 4;
-
-    public static final long searchmask_SEARCH_SCREEN = 1L << 5;
-
-    public static final long searchmask_SEARCH_CLASSNAME = 1L << 6;
-
-    public static final long searchmask_SEARCH_DESKTOP = 1L << 7;
+    public xdo_search_t() {
+        max_depth = -1; //Set 99% of the time anyway.
+    }
 
 }
