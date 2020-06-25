@@ -109,11 +109,6 @@ public class XFacade {
             throw new IllegalArgumentException("sleepTime must be above 0!");
         }
 
-        //Getting original window location
-        IntByReference originalX = new IntByReference();
-        IntByReference originalY = new IntByReference();
-        lib.xdo_get_window_location(xdo, window, originalX, originalY, null);
-
         IntByReference newX = new IntByReference();
         IntByReference newY = new IntByReference();
         long startTime = System.currentTimeMillis();
@@ -131,7 +126,7 @@ public class XFacade {
                 return;
             }
 
-        } while (Math.abs(newX.getValue() - x) < maxXPad && Math.abs(newY.getValue() - y) < maxYPad);
+        } while (Math.abs(newX.getValue() - x) > maxXPad && Math.abs(newY.getValue() - y) > maxYPad);
 
     }
 
