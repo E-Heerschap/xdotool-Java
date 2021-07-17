@@ -91,7 +91,7 @@ public interface xdotool extends Library {
 
     int xdo_send_keysequence_window(final xdo_t xdo, X11.Window window, final String keysequence, int delay);
 
-    int xdo_second_keysequence_window_up(final xdo_t xdo, X11.Window window, final String keysequence, int delay);
+    int xdo_send_keysequence_window_up(final xdo_t xdo, X11.Window window, final String keysequence, int delay);
 
     int xdo_send_keysequence_window_down(final xdo_t xdo, X11.Window window, final String keysequence, int delay);
 
