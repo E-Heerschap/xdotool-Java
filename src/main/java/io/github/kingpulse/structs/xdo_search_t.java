@@ -12,6 +12,7 @@ import com.sun.jna.Structure;
         "winclass",
         "winclassname",
         "winname",
+        "winrole",
         "pid",
         "max_depth",
         "only_visible",
@@ -30,6 +31,8 @@ public class xdo_search_t extends Structure {
     public String winclassname;
 
     public String winname;
+
+    public String winrole;
 
     public int pid;
 
@@ -65,6 +68,7 @@ public class xdo_search_t extends Structure {
     public static final int searchmask_SEARCH_SCREEN = 1 << 5;
     public static final int searchmask_SEARCH_CLASSNAME = 1 << 6;
     public static final int searchmask_SEARCH_DESKTOP = 1 << 7;
+    public static final int searchmask_SEARCH_ROLE = 1 << 8;
 
     public xdo_search_t() {
         max_depth = -1; //Set 99% of the time anyway.
